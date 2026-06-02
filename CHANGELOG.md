@@ -4,6 +4,18 @@ All notable changes to the **Step7 Import/Export** extension will be documented 
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.115] - 2026-06-02
+
+### Added
+
+- **Export Symbol Table via SIMATIC Manager** — push workspace `_symbols.json` or `_symbols.csv` back into the Step7 program symbol table through the SIMATIC Manager COM API
+- **Copilot symbol export tool** — new `step7_export_symbols_to_simatic` Language Model Tool lets Copilot export edited symbol tables from the workspace to SIMATIC Manager
+- **Workspace symbol table reader** — JSON/CSV symbol table files are converted to STEP 7 SDF format before COM import
+
+### Changed
+
+- **Project tree export menu** — symbol table export is available from both Program and Symbol Table nodes
+
 ## [1.0.114] - 2026-04-30
 
 ### Added

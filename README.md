@@ -1,5 +1,5 @@
 <!-- VERSION-BADGE -->
-[![Version](https://img.shields.io/badge/version-1.0.115-blue)](package.json)
+[![Version](https://img.shields.io/badge/version-1.0.116-blue)](package.json)
 <!-- /VERSION-BADGE -->
 
 [![VS Code](https://img.shields.io/badge/VS%20Code-%3E%3D1.80.0-blue?logo=visual-studio-code)](https://code.visualstudio.com/)
@@ -45,7 +45,9 @@ If this extension helps your Step7 workflow, you can support ongoing development
 - **Cancellation support** — cancel long-running operations via VS Code progress UI
 - **Status bar** — real-time project info
 - **Export back to Step7** — send changed block files from the workspace back into SIMATIC Manager
+- **Export Symbol Table back to Step7** — push workspace `_symbols.json` or `_symbols.csv` into SIMATIC Manager via COM
 - **Modified block detection** — quickly find workspace files that diverged from the source project before export
+- **Copilot tools** — expose Step7 import/export actions, including symbol table export, as Language Model Tools for AI-assisted workflows
 
 ---
 
@@ -108,8 +110,10 @@ The extension checks the required Step7 bridge components on activation. If the 
 3. In the **Project Structure** view or the Explorer context menu, run one of the export commands:
    - **Step7: Export to Step7** — export the current block, folder, program, or project
    - **Step7: Export via SIMATIC Manager** — push changes back using the SIMATIC Manager route
+   - **Step7: Export Symbol Table via SIMATIC Manager** — import workspace `_symbols.json` or `_symbols.csv` into the Step7 symbol table
    - **Step7: Show Modified Blocks** — inspect which blocks changed before export
-4. Validate the imported changes inside SIMATIC Manager before downloading to hardware
+4. GitHub Copilot can also call `step7_export_symbols_to_simatic` through the registered Step7 Language Model Tools
+5. Validate the imported changes inside SIMATIC Manager before downloading to hardware
 
 ### Exported Directory Structure
 
@@ -135,7 +139,8 @@ The extension checks the required Step7 bridge components on activation. If the 
 │                   │   └── *.awl
 │                   └── Symbols/
 │                       ├── _symbols.json
-│                       └── _symbols.xlsx
+│                       ├── _symbols.xlsx
+│                       └── _symbols.csv
 │           └── HWconfig/
 │               └── _hwconfig.json          # Station hardware configuration
 ```
@@ -200,6 +205,7 @@ Templates are created only if they do not already exist, so your existing worksp
 | `Step7: Show Modified Blocks`          | Show changed blocks before export                     |
 | `Step7: Export to Step7`               | Export selected workspace content back to Step7       |
 | `Step7: Export via SIMATIC Manager`    | Export selected workspace content via SIMATIC Manager |
+| `Step7: Export Symbol Table via SIMATIC Manager` | Export `_symbols.json` or `_symbols.csv` back to SIMATIC Manager |
 
 ---
 
