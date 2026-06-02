@@ -282,7 +282,7 @@ This extension scaffolds a workspace-ready `.github/copilot-instructions.md` fil
 
 **We encourage you to contribute!** If you have created useful scripts, automation tools, or improvements to the Copilot instructions:
 
-1. **Fork** the [Step7.ExtVScode](https://github.com/cmariusz/Step7.ExtVScode) repository on GitHub
+1. **Fork** the [Step7.ExtVScode](https://github.com/cmariusz/Step7ImportExport.VSExt) repository on GitHub
 2. Propose improvements to the export structure, documentation templates, or `.github/copilot-instructions.md`
 3. Include a short usage note or example when contributing automation helpers or workspace templates
 4. **Open a Pull Request** — your contribution will help the Step7 + VS Code community
