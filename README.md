@@ -1,5 +1,5 @@
 <!-- VERSION-BADGE -->
-[![Version](https://img.shields.io/badge/version-1.0.116-blue)](package.json)
+[![Version](https://img.shields.io/badge/version-1.0.117-blue)](package.json)
 <!-- /VERSION-BADGE -->
 
 [![VS Code](https://img.shields.io/badge/VS%20Code-%3E%3D1.80.0-blue?logo=visual-studio-code)](https://code.visualstudio.com/)
@@ -248,8 +248,8 @@ The extension spawns `Step7Bridge.exe` as a child process, communicating via **J
 
 ## Support and Feedback
 
-- Source repository: [cmariusz/Step7.ExtVScode](https://github.com/cmariusz/Step7.ExtVScode)
-- Issue tracker: [GitHub Issues](https://github.com/cmariusz/Step7.ExtVScode/issues)
+- Source repository: [cmariusz/Step7.ExtVScode](https://github.com/cmariusz/Step7ImportExport.VSEx)
+- Issue tracker: [GitHub Issues](https://github.com/cmariusz/Step7ImportExport.VSExt/issues)
 - Marketplace identifier: `MariuszCzyrnek.step7-import`
 
 If you hit an import/export issue, include the Step7 version, whether SIMATIC Manager is installed, the executed command, and the relevant output from **Step7: Show Logs**.
