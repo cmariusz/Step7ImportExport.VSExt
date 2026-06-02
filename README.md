@@ -1,7 +1,5 @@
 <!-- VERSION-BADGE -->
-
-[![Version](https://img.shields.io/badge/version-1.0.114-blue)](package.json)
-
+[![Version](https://img.shields.io/badge/version-1.0.115-blue)](package.json)
 <!-- /VERSION-BADGE -->
 
 [![VS Code](https://img.shields.io/badge/VS%20Code-%3E%3D1.80.0-blue?logo=visual-studio-code)](https://code.visualstudio.com/)
