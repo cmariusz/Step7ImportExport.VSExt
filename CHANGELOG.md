@@ -10,6 +10,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and 
 
 - **Step7Bridge VSIX packaging** — bundle the complete Release bridge payload, including `DotNetSiemensPLCToolBoxLibrary.dll`, `ICSharpCode.SharpZipLib.dll`, and native libnodave DLLs, so opening STEP7 projects works on machines without local NuGet build outputs
 - **Bridge binary selection** — prefer the packaged Release bridge at runtime and use Debug only as a source-build fallback, preventing installed extensions from launching an incomplete Debug payload
+- **Step7 disconnect action** — make the Disconnect/Close Project command reliably clear the VS Code connection state, stop the bridge process, and avoid hanging if the bridge close request does not respond
 
 ## [1.0.116] - 2026-06-02
 
