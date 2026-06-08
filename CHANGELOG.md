@@ -4,6 +4,13 @@ All notable changes to the **Step7 Import/Export** extension will be documented 
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.118] - 2026-06-08
+
+### Fixed
+
+- **Step7Bridge VSIX packaging** — bundle the complete Release bridge payload, including `DotNetSiemensPLCToolBoxLibrary.dll`, `ICSharpCode.SharpZipLib.dll`, and native libnodave DLLs, so opening STEP7 projects works on machines without local NuGet build outputs
+- **Bridge binary selection** — prefer the packaged Release bridge at runtime and use Debug only as a source-build fallback, preventing installed extensions from launching an incomplete Debug payload
+
 ## [1.0.116] - 2026-06-02
 
 ### Added
