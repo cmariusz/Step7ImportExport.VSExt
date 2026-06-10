@@ -1,5 +1,5 @@
 <!-- VERSION-BADGE -->
-[![Version](https://img.shields.io/badge/version-1.0.122-blue)](package.json)
+[![Version](https://img.shields.io/badge/version-1.0.123-blue)](package.json)
 <!-- /VERSION-BADGE -->
 
 [![VS Code](https://img.shields.io/badge/VS%20Code-%3E%3D1.80.0-blue?logo=visual-studio-code)](https://code.visualstudio.com/)
@@ -48,6 +48,7 @@ If this extension helps your Step7 workflow, you can support ongoing development
 - **Export Symbol Table back to Step7** — push workspace `_symbols.json` or `_symbols.csv` into SIMATIC Manager via COM
 - **Modified block detection** — quickly find workspace files that diverged from the source project before export
 - **Copilot tools** — expose Step7 import/export actions, including symbol table export, as Language Model Tools for AI-assisted workflows
+- **External CLI bridge** — control the running extension from scripts or MCP servers through a localhost JSON bridge
 
 ---
 
@@ -114,6 +115,36 @@ The extension checks the required Step7 bridge components on activation. If the 
    - **Step7: Show Modified Blocks** — inspect which blocks changed before export
 4. GitHub Copilot can also call `step7_export_symbols_to_simatic` through the registered Step7 Language Model Tools
 5. Validate the imported changes inside SIMATIC Manager before downloading to hardware
+
+### External CLI / MCP Automation
+
+When the extension is active, it starts a localhost-only JSON CLI bridge and writes connection details to `.step7/cli.json` in the workspace. The file contains a per-session token and is ignored by Git.
+
+Use the bundled script from an external process, including an MCP server tool command:
+
+```powershell
+npm run step7:cli -- current_project --pretty
+npm run step7:cli -- prepare_workspace --pretty
+npm run step7:cli -- get_logs --limit 100 --pretty
+npm run step7:cli -- open_project --filePath "C:\Projects\PLC\Demo.s7p" --openInSimaticManager true
+npm run step7:cli -- list_blocks --program 0 --nameFilter FB --limit 50
+npm run step7:cli -- import_blocks --program 0 --blocks OB1,FB10
+npm run step7:cli -- step7_export_to_simatic --json '{"program":0,"modifiedOnly":true}'
+```
+
+The script prints JSON to stdout and exits with code `2` when the Step7 operation returns `{ "success": false }`. Command names match the Copilot/MCP tool names with or without the `step7_` prefix, for example `step7_open_project` and `open_project` are equivalent. Disable the bridge with `step7Import.cli.enabled` if external automation is not needed.
+
+Use `get_logs` to fetch recent entries from the **Step7 Import/Export** Output channel in JSON form. It supports `--limit`, `--level info|warn|error|section|all`, and `--contains` filters. The extension keeps only a bounded in-memory log tail for CLI access, so this is intended for current automation diagnostics, not long-term log archival.
+
+The `.step7/cli.json` state file intentionally contains only the localhost endpoint and a per-session token. The bundled Python import helper talks to the bridge directly, so it does not need Node.js or a copied JS client.
+
+For an offline import smoke test from Python, keep this workspace open in VS Code so `.step7/cli.json` exists, then run:
+
+```powershell
+python scripts/step7-offline-import.py "C:\Projects\PLC\Demo.s7p" --workspace . --launch-extension-host --pretty
+```
+
+By default the Python script starts the development Extension Host with `step7.startCli` when needed, opens the Step7 project in SIMATIC Manager with `requireSimaticManager: true`, and then calls `import_project`, so the test fails instead of silently falling back to a libnodave-only open. Add `--libnodave-only` only when you explicitly want to skip SIMATIC Manager and import through the local bridge without that check.
 
 ### Exported Directory Structure
 
