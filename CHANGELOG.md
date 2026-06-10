@@ -4,6 +4,20 @@ All notable changes to the **Step7 Import/Export** extension will be documented 
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2026-06-10
+
+### Added
+
+- **External CLI bridge** — expose Step7 import/export operations through a localhost-only JSON bridge secured with a per-session token in `.step7/cli.json`
+- **Bundled Node.js CLI client** — add `npm run step7:cli` for scripted access to project status, workspace preparation, logs, block listing, imports, and exports using the same command names as Copilot/MCP tools
+- **Automation diagnostics** — add `get_logs` CLI access with limit, level, and text filters for recent Step7 output channel entries
+- **Python offline import helper** — add `scripts/step7-offline-import.py` for smoke-testing project open/import flows through the local bridge, including optional Extension Host launch
+
+### Changed
+
+- **CLI payload handling** — support inline JSON, `@file` JSON payloads, stdin payloads, comma-separated block lists, timeout control, and explicit state-file selection for external automation
+- **CLI command compatibility** — accept command names with or without the `step7_` prefix so scripts can use either short names or Copilot/MCP tool names
+
 ## [1.0.122] - 2026-06-08
 
 ### Fixed

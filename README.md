@@ -1,5 +1,5 @@
 <!-- VERSION-BADGE -->
-[![Version](https://img.shields.io/badge/version-1.0.123-blue)](package.json)
+[![Version](https://img.shields.io/badge/version-2.0.1-blue)](package.json)
 <!-- /VERSION-BADGE -->
 
 [![VS Code](https://img.shields.io/badge/VS%20Code-%3E%3D1.80.0-blue?logo=visual-studio-code)](https://code.visualstudio.com/)
@@ -48,7 +48,7 @@ If this extension helps your Step7 workflow, you can support ongoing development
 - **Export Symbol Table back to Step7** — push workspace `_symbols.json` or `_symbols.csv` into SIMATIC Manager via COM
 - **Modified block detection** — quickly find workspace files that diverged from the source project before export
 - **Copilot tools** — expose Step7 import/export actions, including symbol table export, as Language Model Tools for AI-assisted workflows
-- **External CLI bridge** — control the running extension from scripts or MCP servers through a localhost JSON bridge
+- **External CLI bridge** — control the running extension from Node.js, Python, MCP servers, or other scripts through a token-protected localhost JSON bridge
 
 ---
 
@@ -118,7 +118,7 @@ The extension checks the required Step7 bridge components on activation. If the 
 
 ### External CLI / MCP Automation
 
-When the extension is active, it starts a localhost-only JSON CLI bridge and writes connection details to `.step7/cli.json` in the workspace. The file contains a per-session token and is ignored by Git.
+When the extension is active, it starts a localhost-only JSON CLI bridge and writes connection details to `.step7/cli.json` in the workspace. The file contains a per-session token and is ignored by Git. External tools can call the same Step7 operations exposed to Copilot tools without embedding VS Code extension internals.
 
 Use the bundled script from an external process, including an MCP server tool command:
 
@@ -132,7 +132,7 @@ npm run step7:cli -- import_blocks --program 0 --blocks OB1,FB10
 npm run step7:cli -- step7_export_to_simatic --json '{"program":0,"modifiedOnly":true}'
 ```
 
-The script prints JSON to stdout and exits with code `2` when the Step7 operation returns `{ "success": false }`. Command names match the Copilot/MCP tool names with or without the `step7_` prefix, for example `step7_open_project` and `open_project` are equivalent. Disable the bridge with `step7Import.cli.enabled` if external automation is not needed.
+The script prints JSON to stdout and exits with code `2` when the Step7 operation returns `{ "success": false }`. Command names match the Copilot/MCP tool names with or without the `step7_` prefix, for example `step7_open_project` and `open_project` are equivalent. Pass structured arguments with `--json '{...}'`, `--json @payload.json`, or `--stdin`; use `--state` or `STEP7_CLI_STATE` when the state file lives outside the current workspace. Disable the bridge with `step7Import.cli.enabled` if external automation is not needed.
 
 Use `get_logs` to fetch recent entries from the **Step7 Import/Export** Output channel in JSON form. It supports `--limit`, `--level info|warn|error|section|all`, and `--contains` filters. The extension keeps only a bounded in-memory log tail for CLI access, so this is intended for current automation diagnostics, not long-term log archival.
 
