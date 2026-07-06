@@ -1,5 +1,5 @@
 <!-- VERSION-BADGE -->
-[![Version](https://img.shields.io/badge/version-2.0.1-blue)](package.json)
+[![Version](https://img.shields.io/badge/version-2.0.2-blue)](package.json)
 <!-- /VERSION-BADGE -->
 
 [![VS Code](https://img.shields.io/badge/VS%20Code-%3E%3D1.80.0-blue?logo=visual-studio-code)](https://code.visualstudio.com/)
@@ -118,7 +118,18 @@ The extension checks the required Step7 bridge components on activation. If the 
 
 ### External CLI / MCP Automation
 
-When the extension is active, it starts a localhost-only JSON CLI bridge and writes connection details to `.step7/cli.json` in the workspace. The file contains a per-session token and is ignored by Git. External tools can call the same Step7 operations exposed to Copilot tools without embedding VS Code extension internals.
+The extension can expose a localhost-only JSON CLI bridge that writes connection details to `.step7/cli.json` in the workspace. The bridge is **disabled by default** and does not start automatically, so no `.step7` directory is created until you explicitly opt in.
+
+#### Enabling the CLI bridge
+
+Enable the bridge before external scripts can connect:
+
+- **Settings UI** — search for `step7Import.cli.enabled` and check the box.
+- **Settings JSON** — add `"step7Import.cli.enabled": true` to your user or workspace settings.
+- **Step7 Connection view** — click the **CLI Bridge** row (or the terminal icon in the view title) to toggle it on.
+- **Command Palette** — run **Step7: Start CLI Bridge** (`step7.startCli`). If the bridge is disabled, an information message lets you enable it or open Settings.
+
+When enabled, `.step7/cli.json` contains the localhost endpoint and a per-session token. The file is ignored by Git. External tools can call the same Step7 operations exposed to Copilot tools without embedding VS Code extension internals.
 
 Use the bundled script from an external process, including an MCP server tool command:
 
@@ -132,7 +143,7 @@ npm run step7:cli -- import_blocks --program 0 --blocks OB1,FB10
 npm run step7:cli -- step7_export_to_simatic --json '{"program":0,"modifiedOnly":true}'
 ```
 
-The script prints JSON to stdout and exits with code `2` when the Step7 operation returns `{ "success": false }`. Command names match the Copilot/MCP tool names with or without the `step7_` prefix, for example `step7_open_project` and `open_project` are equivalent. Pass structured arguments with `--json '{...}'`, `--json @payload.json`, or `--stdin`; use `--state` or `STEP7_CLI_STATE` when the state file lives outside the current workspace. Disable the bridge with `step7Import.cli.enabled` if external automation is not needed.
+The script prints JSON to stdout and exits with code `2` when the Step7 operation returns `{ "success": false }`. Command names match the Copilot/MCP tool names with or without the `step7_` prefix, for example `step7_open_project` and `open_project` are equivalent. Pass structured arguments with `--json '{...}'`, `--json @payload.json`, or `--stdin`; use `--state` or `STEP7_CLI_STATE` when the state file lives outside the current workspace. Keep the bridge disabled when external automation is not needed; no `.step7/cli.json` file is created while the setting is off.
 
 Use `get_logs` to fetch recent entries from the **Step7 Import/Export** Output channel in JSON form. It supports `--limit`, `--level info|warn|error|section|all`, and `--contains` filters. The extension keeps only a bounded in-memory log tail for CLI access, so this is intended for current automation diagnostics, not long-term log archival.
 
@@ -144,7 +155,7 @@ For an offline import smoke test from Python, keep this workspace open in VS Cod
 python scripts/step7-offline-import.py "C:\Projects\PLC\Demo.s7p" --workspace . --launch-extension-host --pretty
 ```
 
-By default the Python script starts the development Extension Host with `step7.startCli` when needed, opens the Step7 project in SIMATIC Manager with `requireSimaticManager: true`, and then calls `import_project`, so the test fails instead of silently falling back to a libnodave-only open. Add `--libnodave-only` only when you explicitly want to skip SIMATIC Manager and import through the local bridge without that check.
+With `--launch-extension-host` the script enables `step7Import.cli.enabled` in the workspace settings, starts the development Extension Host with `step7.startCli`, opens the Step7 project in SIMATIC Manager with `requireSimaticManager: true`, and then calls `import_project`. The test fails instead of silently falling back to a libnodave-only open. Add `--libnodave-only` only when you explicitly want to skip SIMATIC Manager and import through the local bridge without that check.
 
 ### Exported Directory Structure
 

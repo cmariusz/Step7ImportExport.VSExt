@@ -4,6 +4,19 @@ All notable changes to the **Step7 Import/Export** extension will be documented 
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.1] - 2026-07-06
+
+### Changed
+
+- **CLI bridge is now opt-in** — `step7Import.cli.enabled` defaults to `false`; the localhost JSON CLI bridge no longer starts automatically and `.step7/cli.json` is not created until the setting is enabled
+- **CLI enable prompt** — running `step7.startCli` or clicking the CLI Bridge toggle while disabled now shows an information message with options to enable the setting or open Settings
+- **Python offline import helper** — enables `step7Import.cli.enabled` in workspace settings before launching the Extension Host so the opt-in CLI bridge can start
+
+### Added
+
+- **CLI Bridge toggle** — new `step7.toggleCli` command and a **CLI Bridge** On/Off item in the Step7 Connection view
+- **Documentation** — updated README with detailed instructions for enabling the opt-in CLI bridge
+
 ## [2.0.0] - 2026-06-10
 
 ### Added
