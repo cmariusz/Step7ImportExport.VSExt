@@ -1,13 +1,8 @@
-# Claude Code Instructions
+## CMsoft Import for Step7
 
-This workspace is a Step7 project mirror managed by the
-**Step7** VS Code extension. The full ruleset lives in a single source of truth
-that is shared with GitHub Copilot.
+The Step7 project mirror is managed by the **CMsoft Import for Step7** VS Code extension. Its full ruleset is shared
+with GitHub Copilot:
 
-@.github/copilot-instructions.md
+@.github/instructions/step7-import.instructions.md
 
-## Local overrides
-
-If you need machine-local notes that should not be committed, create
-`CLAUDE.local.md` next to this file — it is already covered by
-`.gitignore`.
+The CLI bridge for scripts: `.github/instructions/step7-import-cli.instructions.md`.

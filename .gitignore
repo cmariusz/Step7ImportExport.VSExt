@@ -1,0 +1,7 @@
+# CMsoft Import for Step7 CLI bridge: local port and session token (.step7/cli.json)
+.step7/
+# Machine-local notes for Claude Code (see CLAUDE.md)
+CLAUDE.local.md
+# User-generated script outputs
+UserFiles/*
+!UserFiles/.gitkeep
