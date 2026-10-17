@@ -4,6 +4,12 @@ All notable changes to the **CMsoft Import for Step7** extension (formerly Step7
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.2.0] - 2026-10-17
+
+### Changed
+
+- **README: website link** — the README starts with a link to [www.cmsoft.com.pl](https://www.cmsoft.com.pl); its *FREE and PRO* table is headed like in the other CMsoft extensions.
+
 ## [3.1.0] - 2026-10-17
 
 ### Added

@@ -1,5 +1,5 @@
 <!-- VERSION-BADGE -->
-[![Version](https://img.shields.io/badge/version-3.1.0-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-3.2.0-blue)](CHANGELOG.md)
 <!-- /VERSION-BADGE -->
 
 [![VS Code](https://img.shields.io/badge/VS%20Code-%3E%3D1.95.0-blue?logo=visual-studio-code)](https://code.visualstudio.com/)
@@ -9,11 +9,13 @@
 
 # CMsoft Import for Step7 — VS Code Extension
 
+🌐 **[www.cmsoft.com.pl](https://www.cmsoft.com.pl)** — all CMsoft extensions, the shop and contact
+
 **Bidirectional bridge between VS Code and Siemens SIMATIC Manager (Step7 V5.x)** — open `.s7p` projects, import blocks and hardware data into local files, work on them with full VS Code + Copilot support, and export changes back to Step7. The extension is optimized for AWL/STL-centric workflows and for storing PLC logic in a source-control-friendly structure.
 
 ---
 
-## Free and PRO
+## FREE and PRO
 
 | Feature                                                                                           | FREE                          | PRO          |
 | ------------------------------------------------------------------------------------------------- | ----------------------------- | ------------ |
