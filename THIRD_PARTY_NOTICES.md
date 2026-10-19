@@ -19,14 +19,12 @@ This project includes third-party components. Redistribution of this extension s
 - `DotNetProjects.DotNetSiemensPLCToolBoxLibrary` (4.4.9)
   - Used by `Step7Bridge` for reading Step7 project structures and block data.
   - The exact redistribution obligations should be verified against the package license metadata and upstream project terms before publication.
-- `System.Management` (8.0.0), `System.Security.Cryptography.ProtectedData` (8.0.0) and their dependency `System.CodeDom` (8.0.0) — Microsoft, MIT License
-  - Used by `Step7Bridge` for the license check (hardware fingerprint via WMI, DPAPI-protected license store).
-- `System.Text.Json` (10.0.12) and its dependencies `Microsoft.Bcl.AsyncInterfaces`, `System.Buffers`, `System.IO.Pipelines`, `System.Memory`, `System.Numerics.Vectors`, `System.Runtime.CompilerServices.Unsafe`, `System.Text.Encodings.Web`, `System.Threading.Tasks.Extensions` — Microsoft, MIT License
-  - Used by `Step7ComHelper` for its JSON messages to `Step7Bridge`.
+- `System.Text.Json` (10.0.12), `System.Threading.Channels` (10.0.12) and their dependencies `Microsoft.Bcl.AsyncInterfaces`, `System.Buffers`, `System.IO.Pipelines`, `System.Memory`, `System.Numerics.Vectors`, `System.Runtime.CompilerServices.Unsafe`, `System.Text.Encodings.Web`, `System.Threading.Tasks.Extensions` — Microsoft, MIT License
+  - Used by `Step7Bridge` for its JSON-RPC messages to the extension (`System.Threading.Channels` only there) and by `Step7ComHelper` for its JSON messages to `Step7Bridge`.
 
 ## Bundled runtime components
 
-- `Step7Bridge.exe` and its library DLLs are bundled with the VS Code extension package; it runs on the locally installed .NET 10 runtime.
+- `Step7Bridge.exe` and its library DLLs are bundled with the VS Code extension package. It runs on the .NET Framework 4.8 built into Windows (the license check uses its `System.Management` and DPAPI), so no .NET runtime is bundled.
 - `Step7ComHelper.exe` is an x86 helper for the 32-bit Step7 COM automation layer. It runs on the .NET Framework 4.8 built into Windows, so no .NET runtime is bundled.
 
 ## Siemens software dependency notice

@@ -1,5 +1,5 @@
 <!-- VERSION-BADGE -->
-[![Version](https://img.shields.io/badge/version-3.2.0-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-3.3.0-blue)](CHANGELOG.md)
 <!-- /VERSION-BADGE -->
 
 [![VS Code](https://img.shields.io/badge/VS%20Code-%3E%3D1.95.0-blue?logo=visual-studio-code)](https://code.visualstudio.com/)
@@ -75,7 +75,7 @@
 | ------------------- | --------------------------------------------------------------------------- |
 | **OS**              | Windows 10 / 11                                                             |
 | **VS Code**         | 1.95 or later                                                               |
-| **.NET**            | .NET 10 Runtime; .NET Framework 4.8 (built into Windows 10 / 11)            |
+| **.NET**            | .NET Framework 4.8 (part of Windows 10 1903+ / 11) — nothing to install     |
 | **SIMATIC Manager** | STEP 7 V5.7 — for the features that use SIMATIC Manager (see below)         |
 
 Nothing else needs to be installed — no Node.js, npm or build tools: the extension comes ready to run.
@@ -89,10 +89,9 @@ The extension reads projects directly from their files: browsing and the import 
 ## Installation
 
 1. Install the extension from the VS Code Marketplace, or run `code --install-extension MariuszCzyrnek.step7-import`
-2. Make sure the .NET 10 Runtime is installed — on activation the extension checks its components and offers the installation when the runtime is missing
-3. For the features that use SIMATIC Manager, install STEP 7 V5.7
-4. Optionally adjust the settings: **File → Preferences → Settings → CMsoft Import for Step7**
-5. New here? **Step7: Open User Manual** opens the complete user manual inside VS Code (offline), and **Welcome: Open Walkthrough… → Get Started with CMsoft Import for Step7** leads through the setup, the first project and the first import
+2. For the features that use SIMATIC Manager, install STEP 7 V5.7
+3. Optionally adjust the settings: **File → Preferences → Settings → CMsoft Import for Step7**
+4. New here? **Step7: Open User Manual** opens the complete user manual inside VS Code (offline), and **Welcome: Open Walkthrough… → Get Started with CMsoft Import for Step7** leads through the setup, the first project and the first import
 
 ---
 
@@ -311,7 +310,8 @@ The settings `step7Import.license.*` (license server, activation e-mail, purchas
 - **An import reports blocks as *kept*** — their workspace files have changes of their own (the log says which). Export them, or import with *Overwrite all* (one block: **Replace with Step7 Version** in the notification) to take the Step7 version.
 - **"… is not open in SIMATIC Manager"** — open the project in SIMATIC Manager (or use **Step7: Open in SIMATIC Manager**) and try again.
 - **An export stops with "SIMATIC Manager may be waiting for a dialog to be closed"** — close the open dialog in SIMATIC Manager and export again.
-- **The bridge components are missing or the .NET runtime is not found** — accept the installation offered on activation, or install the .NET 10 Runtime and reload VS Code.
+- **The bridge components are missing** — reinstall the extension.
+- **"… needs the .NET Framework 4.8"** — older Windows (Windows 10 before version 1903, Windows Server 2019) may not have it: install it with **Download .NET Framework 4.8** in the message, then restart Windows and VS Code.
 
 ---
 

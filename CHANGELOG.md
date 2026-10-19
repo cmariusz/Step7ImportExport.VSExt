@@ -4,6 +4,12 @@ All notable changes to the **CMsoft Import for Step7** extension (formerly Step7
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.3.0] - 2026-10-19
+
+### Changed
+
+- **No .NET runtime to install** — the program that reads the projects and holds the license check (`Step7Bridge.exe`) runs on the .NET Framework 4.8 built into Windows 10 (1903 and later) and Windows 11, like the COM helper since 3.1.0. The .NET 10 Runtime is no longer needed: without it, projects could not be opened and the license panel showed *(unavailable — no connection to the .NET bridge)* instead of the hardware ID. On activation the extension now checks the .NET Framework 4.8 and offers its download where it is missing (Windows 10 before 1903, Windows Server 2019). What the extension reads from projects is the same, and so is the hardware ID: licenses stay valid.
+
 ## [3.2.0] - 2026-10-17
 
 ### Changed
