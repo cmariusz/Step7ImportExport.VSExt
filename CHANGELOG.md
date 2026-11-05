@@ -8,10 +8,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and 
 
 ### Added
 
+- **S7-GRAPH support** — sequencers are imported as `.gr7` files and exported as GRAPH sources, compiled by S7-GRAPH, new sequencers included; compile errors are shown in PROBLEMS.
 - **What's New** — after an update a tab shows what the version brings and the new CMsoft video; **Step7: What's New** opens it again.
 - **MCP server for AI agents** (PRO) — Claude Code, Claude Desktop, Cursor and Copilot's agent mode can use the Step7 tools.
 - **LAD and FBD blocks keep their language** — an exported block is saved in LAD or FBD again, and a new block can be created in FBD.
-- **S7-GRAPH sequencers** — imported as `.gr7` files and exported as GRAPH sources, new sequencers included; compile errors are shown in PROBLEMS.
 - **I/O modules in the hardware configuration** — the imported hardware configuration lists the modules with their order numbers and I/O addresses.
 - **Functional descriptions of existing programs** — the AI instructions of Prepare Workspace explain how to document a program from its code.
 - **Problems of imports and exports in PROBLEMS** — what an import or export could not write, or wrote with a warning, is listed with the reason.

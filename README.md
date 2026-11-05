@@ -55,6 +55,7 @@
 ### Work in VS Code, export back to Step7
 
 - **Readable sources** — every block is an `.awl` / `.scl` / `.gr7` (S7-GRAPH) file named after its symbol, ready for Git and diff tools
+- **S7-GRAPH sequencers** — imported as `.gr7` files (the GRAPH source with steps, transitions and actions) and exported back as GRAPH sources, compiled by S7-GRAPH — new sequencers included, with their instance DB; S7-GRAPH's compile errors appear in the *Problems* view with their line
 - **German or English mnemonics** — AWL (German) or STL (English) instruction set
 - **Symbolic names** — addresses are shown with their symbols from the symbol table
 - **Know-how protected blocks** — recognized and never overwritten by an export
