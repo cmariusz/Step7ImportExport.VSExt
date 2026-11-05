@@ -23,7 +23,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and 
 ### Fixed
 
 - **Instance DBs go with their FB** — an export compiles the instance DBs of an exported FB with it, so the blocks that call the FB compile; a caller that was not exported is named in PROBLEMS.
-- **No block is lost after a failed compile** — a block the compile removed is put back, or kept in the program's sources as `<block>_previous` with the reason in PROBLEMS.
+- **No block is lost after a failed compile** — a block the compile removed is put back, FBD and LAD blocks in their view, or kept in the program's sources as `<block>_previous` with the reason in PROBLEMS.
 - **Faster export and Open Project** when SIMATIC Manager lists many projects; the log shows the time of every exported block.
 - **Export order** — blocks that use multi-instances or UDTs declared by number are compiled after them.
 - **Symbol table export** — the next import reads the new table, and no Notepad window is left open.
