@@ -1,5 +1,5 @@
 <!-- VERSION-BADGE -->
-[![Version](https://img.shields.io/badge/version-3.3.0-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-3.5.0-blue)](CHANGELOG.md)
 <!-- /VERSION-BADGE -->
 
 [![VS Code](https://img.shields.io/badge/VS%20Code-%3E%3D1.95.0-blue?logo=visual-studio-code)](https://code.visualstudio.com/)
@@ -13,23 +13,27 @@
 
 **Bidirectional bridge between VS Code and Siemens SIMATIC Manager (Step7 V5.x)** — open `.s7p` projects, import blocks and hardware data into local files, work on them with full VS Code + Copilot support, and export changes back to Step7. The extension is optimized for AWL/STL-centric workflows and for storing PLC logic in a source-control-friendly structure.
 
+▶ **Video:** [AI works with SIMATIC Manager: reconstructs the functional description, writes and fixes PLC code](https://youtu.be/Nl9brzja8hw) — a real AI run with this extension: an S7-300 program in FBD and S7-GRAPH from a specification, the functional description of an existing program, and the fixes it led to (17 min).
+
 ---
 
 ## FREE and PRO
 
-| Feature                                                                                           | FREE                          | PRO          |
-| ------------------------------------------------------------------------------------------------- | ----------------------------- | ------------ |
-| Open Step7 projects (`.s7p`), browse the project structure, open in SIMATIC Manager               | ✅                            | ✅           |
-| Import blocks, symbol tables, watch tables and hardware configuration from Step7 to the workspace | ✅                            | ✅           |
-| Generate AWL sources, show modified blocks, export AWL packages to a folder                       | ✅                            | ✅           |
-| Export blocks from the workspace to Step7 via SIMATIC Manager (import and compile)                | up to 10 blocks per operation | ✅ unlimited |
-| Export the symbol table to Step7 via SIMATIC Manager                                              | ✅                            | ✅           |
-| Copilot Language Model tools and the `@step7` chat participant                                    | ⛔                            | ✅           |
-| CLI bridge for scripts and automation                                                             | ⛔                            | ✅           |
-| Prepare Workspace (AI instructions, templates, Tools)                                             | ⛔                            | ✅           |
+| Feature                                                                                                                 | FREE                          | PRO          |
+| ----------------------------------------------------------------------------------------------------------------------- | ----------------------------- | ------------ |
+| Open Step7 projects (`.s7p`), browse the project structure, open in SIMATIC Manager                                     | ✅                            | ✅           |
+| Import blocks, symbol tables, watch tables and hardware configuration from Step7 to the workspace, generate AWL sources | up to 10 blocks per operation | ✅ unlimited |
+| Export blocks and the symbol table from the workspace to Step7 via SIMATIC Manager (import and compile)                 | up to 10 blocks per operation | ✅ unlimited |
+| Next import or export                                                                                                   | 15 minutes after the previous | ✅ at once   |
+| Show modified blocks, export AWL packages to a folder                                                                   | ✅                            | ✅           |
+| Copilot Language Model tools and the `@step7` chat participant                                                          | ⛔                            | ✅           |
+| CLI bridge for scripts and automation                                                                                   | ⛔                            | ✅           |
+| MCP server for AI agents (Claude Code, Cursor, Copilot)                                                                 | ⛔                            | ✅           |
+| Prepare Workspace (AI instructions, templates, Tools)                                                                   | ⛔                            | ✅           |
 
+- **FREE limits:** one operation is one command — a program, all programs, a block folder, a selection, the symbol table, an export via SIMATIC Manager — or one AI tool call. It counts the blocks it reads from or writes to Step7 (the symbol table, a watch table and the hardware configuration count as one object); an operation with more than 10 blocks is refused before anything is read or sent (import or export a block folder or a selection). After an operation the next import or export is available 15 minutes later.
 - **14-day free trial**, no payment details needed: **CMsoft Import for Step7: Manage License / Subscription** → *Try for free*.
-- Subscription (monthly or yearly, renews automatically) or one-time payment: **CMsoft Import for Step7: Buy License** — prices on the [pricing page](https://extensions.cmsoft.com.pl/pricing?product=step7-import). A license covers one Seat (one named user on one activated workstation).
+- Subscription (monthly or yearly, renews automatically): **CMsoft Import for Step7: Buy License** — prices on the [pricing page](https://extensions.cmsoft.com.pl/pricing?product=step7-import). A license covers one Seat (one named user on one activated workstation).
 - The license is shown in the shared **CMsoft** status bar item (one item for all installed CMsoft extensions) and in the *Connection* view; both open the license panel. The CMsoft item also lists the user manuals of the installed CMsoft extensions under **Manuals** (**Help: CMsoft Manuals…** in the Command Palette lists them alone).
 
 ---
@@ -45,26 +49,30 @@
 | **Import a block folder or blocks** | Import all blocks of one type (OB, FB, FC, DB, UDT …), one block, or Ctrl+click several |
 | **Import the symbol table**         | As CSV, JSON or XLSX                                                                |
 | **Import watch tables**             | Variable tables (VAT) as JSON                                                       |
-| **Import hardware configuration**   | Station HW config (CPUs, CPs, network interfaces, Profibus/Profinet) as JSON        |
+| **Import hardware configuration**   | Station HW config (CPUs, CPs, network interfaces, Profibus/Profinet) as JSON — with SIMATIC Manager running also the module in each slot of the racks and of the distributed I/O, with its I/O addresses |
 | **Generate AWL sources**            | Full AWL/STL sources generated by SIMATIC Manager                                   |
 
 ### Work in VS Code, export back to Step7
 
-- **Readable sources** — every block is an `.awl` / `.scl` file named after its symbol, ready for Git and diff tools
+- **Readable sources** — every block is an `.awl` / `.scl` / `.gr7` (S7-GRAPH) file named after its symbol, ready for Git and diff tools
 - **German or English mnemonics** — AWL (German) or STL (English) instruction set
 - **Symbolic names** — addresses are shown with their symbols from the symbol table
 - **Know-how protected blocks** — recognized and never overwritten by an export
+- **LAD and FBD blocks stay LAD and FBD** — their source starts with `// @language FBD` (or `LAD`); after the compile the export saves the block in that view of the LAD/STL/FBD editor, so SIMATIC Manager shows it in FBD again. Write the line above a new block to create it in FBD
 - **Show Modified Blocks** — the blocks you changed since the last import or export
 - **Export via SIMATIC Manager** — changed blocks are imported into the Step7 project and compiled, in dependency order; compile errors and warnings appear in the *Problems* view with their line
+- **Problems of imports** — every block an import could not read, wrote as decompiled code or kept with changes in both places is an entry in the *Problems* view until it is imported again - no searching the log of hundreds of blocks
 - **Export the symbol table** — your edited `_symbols.csv` / `_symbols.json` goes back into the Step7 symbol table
 - **AWL packages** — the sources of a block, folder, program or project as files for a manual import in SIMATIC Manager
 - **Progress and cancellation** — long operations show their progress and can be cancelled
+- **What's New** — after an update a tab shows what the version brings and the new CMsoft videos; **Step7: What's New** opens it again
 
 ### AI and automation (PRO)
 
 - **Copilot tools** — Copilot can open projects, import, list blocks, export to SIMATIC Manager and fix compile errors in a loop
 - **`@step7` chat participant** — ask for Step7 work in the chat; it runs the same tools and asks before it writes into SIMATIC Manager
-- **CLI bridge** — drive the extension from PowerShell, Python, Node.js or an MCP server through a token-protected localhost JSON bridge
+- **MCP server** — Claude Code, Cursor, Copilot's agent mode and every other MCP client get the same `step7_*` tools over a token-protected localhost endpoint
+- **CLI bridge** — drive the extension from PowerShell, Python or Node.js through a token-protected localhost JSON bridge
 - **Workspace templates** — AI instructions (`.github/instructions/step7-import*.instructions.md`, sections in `AGENTS.md`, `CLAUDE.md`, `.github/copilot-instructions.md` next to the other CMsoft extensions), CLI instructions and an example Python script
 
 ---
@@ -141,7 +149,7 @@ An import of several blocks asks whether to rewrite all block files or only the 
         └── ExportPackage/             # AWL packages of Step7: Export to Step7
 ```
 
-- A block without a symbol is named after the block (`FC20.scl`); SCL blocks have the `.scl` extension.
+- A block without a symbol is named after the block (`FC20.scl`); SCL blocks have the `.scl` extension, S7-GRAPH sequencers the `.gr7` extension (their GRAPH source, which goes back to Step7 as a GRAPH source).
 - With the export format `awl+json`, each block also gets a `.meta.json` file and DBs/UDTs a `.struct.json` file.
 - The hidden `.source-hashes.json` in each block folder records every source as the last import wrote it or the last export sent it — it tells which blocks you modified, and which files an import may overwrite. Keep it, and commit it together with the sources.
 
@@ -165,7 +173,7 @@ Edit the files in `Blocks/`, then run one of these commands from the **Project S
 - **A block uses a block that failed** — it is not sent: compiled against the old version it would fail as well. The *Problems* view says why ("uses FB10, whose export failed - fix FB10 first"); it goes with the next export.
 - **SIMATIC Manager cannot be used** — it does not answer (for example an open dialog), is closed, or does not find the project or program: the export stops with the reason, and lists the blocks it did not send. Remove the cause and export again.
 
-Without a PRO license, one export via SIMATIC Manager covers up to 10 blocks; larger operations ask for a license. AWL packages and the symbol table export are not limited.
+Without a PRO license, one export via SIMATIC Manager covers up to 10 blocks and the next import or export is available 15 minutes later; larger operations ask for a license. AWL packages are not limited.
 
 > Validate every change in SIMATIC Manager before you download it to a PLC.
 
@@ -176,7 +184,22 @@ With a PRO license, GitHub Copilot gets the Step7 tools (`step7_open_project`, `
 - Tools that write into SIMATIC Manager ask for your confirmation first, unless `step7Import.lmTools.autoConfirmExports` is on.
 - `step7_fix_compile_errors` runs export → compile → fix rounds; `step7Import.lmTools.maxFixIterations` limits one run (default 5). When the export stopped because SIMATIC Manager could not be used, the tool tells Copilot not to edit the sources for it.
 
-### External CLI / MCP automation (PRO)
+### MCP server for AI agents (PRO)
+
+The extension runs a localhost-only **MCP server** (Streamable HTTP) with the same `step7_*` tools as Copilot - for Claude Code, Claude Desktop, Cursor or any MCP client. It is on by default with a PRO license (`step7Import.mcp.enabled`); the **MCP Server** row of the *Connection* view shows its address, and **Step7: Enable MCP Server** switches it on.
+
+- VS Code's own MCP support (Copilot agent mode, VS Code 1.99+) finds the server without any configuration.
+- Other clients read the URL and the Bearer token from `.step7/mcp.json` (in the workspace once it is used for Step7 work, always in the extension's global storage). They change with every start of VS Code - read them again then, and keep `.step7/` out of Git. Claude Code, for example:
+
+```powershell
+$s = Get-Content .step7\mcp.json | ConvertFrom-Json
+claude mcp add --transport http step7 $s.url --header "Authorization: Bearer $($s.token)"
+```
+
+- There is no confirmation dialog of the extension: MCP clients ask their user before a tool runs. Exports compile blocks in the open SIMATIC Manager project - review what the agent wrote before you export or download it.
+- Long tool calls (an export of many blocks) send progress notifications every 20 s, so clients do not give up while SIMATIC Manager still compiles.
+
+### External CLI automation (PRO)
 
 The extension can expose a localhost-only JSON bridge for scripts and MCP servers. It is **disabled by default**; enable it with one of:
 
@@ -248,6 +271,7 @@ Without PRO, the import still creates `.github/copilot-instructions.md` with thi
 | `step7Import.lmTools.autoConfirmExports` | Copilot exports to SIMATIC Manager without asking (PRO)                 | `false`       |
 | `step7Import.lmTools.maxFixIterations` | Export → compile → fix rounds of `step7_fix_compile_errors` (1–20, PRO)   | `5`           |
 | `step7Import.cli.enabled`              | Start the localhost CLI bridge and write `.step7/cli.json` (PRO)          | `false`       |
+| `step7Import.mcp.enabled`              | Run the localhost MCP server for AI agents, `.step7/mcp.json` (PRO)       | `true`        |
 
 The settings `step7Import.license.*` (license server, activation e-mail, purchase page) do not need to be changed.
 
@@ -282,6 +306,7 @@ The settings `step7Import.license.*` (license server, activation e-mail, purchas
 | **Workspace and automation**                     |                                                                    |
 | `Step7: Prepare Workspace`                       | Copy the workspace templates (PRO)                                 |
 | `Step7: Start CLI Bridge` / `Toggle CLI Bridge`  | Start, or switch on and off, the CLI bridge (PRO)                  |
+| `Step7: Enable MCP Server`                       | Switch on the MCP server for AI agents, or show its address (PRO)  |
 | `Step7: Show Logs`                               | Open the extension's output channel                                |
 | `Step7: Open Settings`                           | Open the extension settings                                        |
 | `Step7: Toggle …`                                | Switch export format, mnemonic language, symbolic names, system blocks, structure JSON, deleted blocks, know-how protected export |
@@ -377,7 +402,7 @@ Copyright © 2026 CMsoft. All rights reserved.
 | Document                                         | Content                                                            |
 | ------------------------------------------------ | ------------------------------------------------------------------ |
 | [LICENSE.md](LICENSE.md)                         | End User License Agreement (terms of use)                          |
-| [TERMS.md](TERMS.md)                             | Terms of sale — subscriptions, one-time payment, trial, refunds    |
+| [TERMS.md](TERMS.md)                             | Terms of sale — subscriptions, trial, refunds                      |
 | [PRIVACY.md](PRIVACY.md)                         | Privacy policy — no telemetry, no project data leaves your machine |
 | [SECURITY.md](SECURITY.md)                       | Security policy — reporting vulnerabilities, supported versions    |
 | [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) | Third-party components and their licenses                          |
